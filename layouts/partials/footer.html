@@ -46,3 +46,45 @@
     </span>
   {{ end }}
 </div>
+
+<script src="https://cdn.bootcss.com/mermaid/8.0.0-rc.8/mermaid.min.js"></script>
+
+
+<!-- PlantUML -->
+<script src="https://cdn.jsdelivr.net/gh/jmnote/plantuml-encoder@1.2.4/dist/plantuml-encoder.min.js" integrity="sha256-Qsk2KRBCN5qVZX7B+8+2IvQl1Aqc723qV1tBCQaVoqo=" crossorigin="anonymous"></script>
+<script>
+(function(){
+  let plantumlPrefix = "language-plantuml";
+  Array.prototype.forEach.call(document.querySelectorAll("[class^=" + plantumlPrefix + "]"), function(code){
+    let image = document.createElement("IMG");
+    image.loading = 'lazy'; // Lazy loading
+    image.src = 'http://www.plantuml.com/plantuml/svg/~1' + plantumlEncoder.encode(code.innerText);
+    code.parentNode.insertBefore(image, code);
+    code.style.display = 'none';
+  });
+})();
+</script>
+
+
+<script type="text/javascript" src="//cdn.bootcss.com/viz.js/1.8.0/viz.js"> </script>
+<script type="text/javascript">
+(function(){
+    var vizPrefix = "language-viz-";
+    Array.prototype.forEach.call(document.querySelectorAll("[class^=" + vizPrefix + "]"), function(x){
+        var engine;
+        x.getAttribute("class").split(" ").forEach(function(cls){
+            if (cls.startsWith(vizPrefix)) {
+                engine = cls.substr(vizPrefix.length);
+            }
+        });
+        var image = new DOMParser().parseFromString(Viz(x.innerText, {format:"svg", engine:engine}), "image/svg+xml");
+        x.parentNode.insertBefore(image.documentElement, x);
+        x.style.display = 'none'
+    });
+})();
+</script>
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/styles/vs.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
